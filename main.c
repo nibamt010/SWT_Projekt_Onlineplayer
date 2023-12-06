@@ -35,7 +35,7 @@ while(wahl != 10){
 
     switch (wahl){
         case 1:
-            BibliothekInitialisiern();
+            //BibliothekInitialisiern();
             printf("Bibliothek erfolgreich initialisiert\n");
             break;
         case 2:
