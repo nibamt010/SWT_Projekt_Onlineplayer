@@ -1,4 +1,4 @@
-include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "cJSON.h"
 
@@ -11,10 +11,7 @@ char Album[MAX_ZEILENLAENGE];
 int Dauer[MAX_ZEILENLAENGE];
 }*/
 
-void BibliothekInitialisieren(){
-
-
-}
+//void BibliothekInitialisieren(){}
 
 int main()
 {
