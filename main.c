@@ -114,10 +114,6 @@ void BibliothekAnzeigen(Song *bibliothek, int anzahl_songs)
 
 void SongHinzufügen(Song **bibliothek, int *anzahl_songs)
 {
-    if (*anzahl_songs >= MAX_SONGS) {
-        printf("Die maximale Anzahl an Songs in der Bibliothek wurde erreicht.\n");
-        return;
-    }
     printf("\nGeben Sie den Titel ein: ");
     scanf("%s", (*bibliothek)[*anzahl_songs].titel);
 
@@ -262,7 +258,7 @@ switch(auswahl){
     break;
     case 4:
         printf("\nGeben sie das gesuchte Erscheinungsjahr ein: ");
-        scanf("%d", gesuchtesErscheinungsjahr);
+        scanf("%d", &gesuchtesErscheinungsjahr);
 
         for (int i=0 ; i < *anzahl_songs ; i++){
             if ((*bibliothek)[i].erscheinungsjahr == gesuchtesErscheinungsjahr){
@@ -295,7 +291,6 @@ switch(auswahl){
 
 void DatenÄndern(Song **bibliothek, int *anzahl_songs){
     char gesuchtersong[MAX_ZEILENLAENGE];
-    char neuertitel[MAX_ZEILENLAENGE];
     int gesuchterIndex = -1;
     int auswahl;
 
