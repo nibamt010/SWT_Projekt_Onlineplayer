@@ -100,7 +100,7 @@ void BibliothekAnzeigen(Song *bibliothek, int anzahl_songs)
     printf("\nBibliothek leer!");
     }
     else{
-    // Ausgabe der bestehenden Einträge in der Bibliothek
+
         for (int i = 0; i < anzahl_songs; i++) {
         printf("%s, %s, %s, %d, %d",
                bibliothek[i].titel,
@@ -168,7 +168,7 @@ void SongLöschen(Song **bibliothek, int *anzahl_songs){
         }
     printf("Song erfolgreich gelöscht!\n");
     }
-// Reduziere die Anzahl der Songs in der Bibliothek
+
 (*anzahl_songs)--;
 
 *bibliothek = (Song *)realloc(*bibliothek,(unsigned long)(*anzahl_songs) * sizeof(Song));
