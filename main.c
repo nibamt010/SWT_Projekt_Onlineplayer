@@ -65,73 +65,33 @@ void Startroutine()    {
     } while ((auswahl != 1) && (auswahl != 2));
 }
 
-void BibliothekInitialisieren(Song **bibliothek, int *anzahl_songs)
-{
+void BibliothekInitialisieren(Song **bibliothek, int *anzahl_songs)    {
+
     FILE *fp = NULL;
-    int auswahl;
-    printf("\nWollen Sie eine neue Bibliothek erstellen (1) oder eine vorhandene Bibliothek initialisieren(2)?\n");
-    scanf("%d", &auswahl);
-    switch (auswahl)    {
+    fp = fopen(dateiname, "r");
+    char c = 0;
+    int eintraege = 0;
 
-    case 1:
-        *bibliothek= (Song *)malloc( * sizeof(Song));
-                if (*bibliothek== NULL) {
-                printf("Fehler beim Allokieren des Speichers für die Bibliothek.\n");
-                fclose(fp);
-                exit(EXIT_FAILURE);
-                }
-                else{
-                printf("Bibliothek erfolgreich erstellt!\n");
-                }
-        break;
-
-    case 2:
-         while (fp == NULL) {
-        printf("Geben Sie den Dateinamen der bestehenden Bibliothek ein:\n");
-        scanf("%s", dateiname);
-        fp = fopen(dateiname, "r");
-
-            if (fp == NULL)
-            printf("\nDie Bibliotheksdatei %s konnte nicht initialisiert werden.\n\n", dateiname);
-         }
-            // Zählen der Anzahl an Einträgen (Songs) in der Bibliotheksdatei
-            int eintraege = 0;
-            char c;
-            while ((c = (char)fgetc(fp)) != EOF) {
-                if (c == '\n')
-                eintraege++;
-            }
-            rewind(fp);
-
-            // Allokieren des Speichers für die Bibliothek
-            *bibliothek= (Song *)malloc(MAX_SONGS * sizeof(Song));
-                if (*bibliothek== NULL) {
-                printf("Fehler beim Allokieren des Speichers für die Bibliothek.\n");
-                fclose(fp);
-                exit(EXIT_FAILURE);
-                }
-
-            // Lesen der Einträge (Songs) aus der Bibliotheksdatei und initialisieren Sie die Bibliothek
-            for (int i = 0; i < eintraege; i++) {
-                fscanf(fp, "%99[^,],%99[^,],%99[^,],%d,%d\n",
-                            (*bibliothek)[i].titel,
-                            (*bibliothek)[i].interpret,
-                            (*bibliothek)[i].album,
-                            &(*bibliothek)[i].erscheinungsjahr,
-                            &(*bibliothek)[i].dauer);
-                            }
-
-            *anzahl_songs = eintraege;
-
-            printf("\nDie Bibliothek %s wurde erfolgreich initialisiert.\n", dateiname);
-
-            fclose(fp);
-                break;
-
-        default:
-        printf("Ungültige Eingabe! Bitte Wählen Sie erneut.\n");
+    while ((c = (char)fgetc(fp)) != EOF)  {
+        if (c == '\n')
+            eintraege++;
     }
 
+    rewind(fp);
+
+    *bibliothek = (Song *)malloc((unsigned long)eintraege * sizeof(Song));
+
+    for (int i = 0; i < eintraege; i++) {
+        fscanf(fp, "%[^,],%[^,],%[^,],%d,%d\n",
+                (*bibliothek)[i].titel,
+                (*bibliothek)[i].interpret,
+                (*bibliothek)[i].album,
+                &(*bibliothek)[i].erscheinungsjahr,
+                &(*bibliothek)[i].dauer);
+    }
+
+    *anzahl_songs = eintraege;
+    fclose(fp);
 }
 
 void BibliothekAnzeigen(Song *bibliothek, int anzahl_songs)
