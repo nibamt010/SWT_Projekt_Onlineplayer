@@ -3,7 +3,6 @@
 #include <string.h>
 
 #define MAX_ZEILENLAENGE 100
-#define MAX_SONGS 100
 
 char dateiname[MAX_ZEILENLAENGE];
 int anzahl_songs = 0;
@@ -16,6 +15,56 @@ typedef struct  {
     int dauer;
 } Song;
 
+void Startroutine()    {
+
+    FILE *fp = NULL;
+    int auswahl = 0;
+
+    printf("------------------ STARTMENÜ --------------------\n\n");
+
+    printf("1. Bestehende Bibliothek einlesen\n");
+    printf("2. Neue Bibliothek erstellen\n\n");
+
+    printf("Bitte wählen Sie einen Option (1-2): ");
+    do
+    {
+        scanf("%d", &auswahl);
+        switch (auswahl)
+        {
+        case 1:
+            printf("Geben Sie den Namen der bestehenden Bibliothek ein (mit .csv am Ende des Dateinamens): ");
+            scanf("%s", dateiname);
+            fp = fopen(dateiname, "r");
+                if (fp == NULL)     {
+                    printf("\nDie Bibliothek %s konnte nicht geöffnet werden!\n", dateiname);
+                    exit(EXIT_FAILURE);
+                }
+                else    {
+                    printf("\nDie Bibliothek %s wurde erfolgreich geöffnet.\n", dateiname);
+                    fclose(fp);
+                }
+                    break;
+        case 2:
+        printf("Geben Sie den Namen der neuen Bibliothek ein (mit .csv am Ende des Dateinamens): ");
+            scanf("%s", dateiname);
+            fp = fopen(dateiname, "w");
+                if (fp == NULL)     {
+                    printf("\nDie Bibliothek %s konnte nicht erstellt werden!\n", dateiname);
+                    exit(EXIT_FAILURE);
+                }
+                else    {
+                    printf("\nDie Bibliothek %s wurde erfolgreich erstellt.\n", dateiname);
+                    fclose(fp);
+                }
+                    break;
+        default:
+            printf("\nUngültige Eingabe! Wählen Sie erneut aus: ");
+            break;
+        }
+
+    } while ((auswahl != 1) && (auswahl != 2));
+}
+
 void BibliothekInitialisieren(Song **bibliothek, int *anzahl_songs)
 {
     FILE *fp = NULL;
@@ -25,7 +74,7 @@ void BibliothekInitialisieren(Song **bibliothek, int *anzahl_songs)
     switch (auswahl)    {
 
     case 1:
-        *bibliothek= (Song *)malloc(MAX_SONGS * sizeof(Song));
+        *bibliothek= (Song *)malloc( * sizeof(Song));
                 if (*bibliothek== NULL) {
                 printf("Fehler beim Allokieren des Speichers für die Bibliothek.\n");
                 fclose(fp);
@@ -364,6 +413,8 @@ int main()
     int auswahl;
 
     printf("\nHerzlich Willkommen im Dateimanagementsystem ihres Musikplayers!\n");
+
+    Startroutine();
 
     BibliothekInitialisieren(&bibliothek, &anzahl_songs);
 
