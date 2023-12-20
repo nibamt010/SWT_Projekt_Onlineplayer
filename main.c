@@ -5,7 +5,6 @@
 #define MAX_ZEILENLAENGE 100
 
 char dateiname[MAX_ZEILENLAENGE];
-int anzahl_songs = 0;
 
 typedef struct  {
     char titel[MAX_ZEILENLAENGE];
@@ -371,6 +370,7 @@ int main()
 {
     Song *bibliothek = NULL;
     int auswahl;
+    int anzahl_songs = 0;
 
     printf("\nHerzlich Willkommen im Dateimanagementsystem ihres Musikplayers!\n");
 
