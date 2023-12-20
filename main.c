@@ -19,7 +19,7 @@ void Startroutine()    {
     FILE *fp = NULL;
     int auswahl = 0;
 
-    printf("------------------ STARTMENÜ --------------------\n\n");
+    printf("\n------------------ STARTMENÜ --------------------\n");
 
     printf("1. Bestehende Bibliothek einlesen\n");
     printf("2. Neue Bibliothek erstellen\n\n");
@@ -114,14 +114,16 @@ void BibliothekAnzeigen(Song *bibliothek, int anzahl_songs)
 
 void SongHinzufügen(Song **bibliothek, int *anzahl_songs)
 {
-    printf("\nGeben Sie den Titel ein: ");
-    scanf("%s", (*bibliothek)[*anzahl_songs].titel);
+    *bibliothek = realloc(*bibliothek, sizeof (&anzahl_songs + 1));
+
+    printf("Geben Sie den Titel ein: ");
+    scanf(" %[^\n]", (*bibliothek)[*anzahl_songs].titel);
 
     printf("\nGeben Sie den Interpret ein: ");
-    scanf("%s", (*bibliothek)[*anzahl_songs].interpret);
+    scanf(" %[^\n]", (*bibliothek)[*anzahl_songs].interpret);
 
     printf("\nGeben Sie das Album ein: ");
-    scanf("%s", (*bibliothek)[*anzahl_songs].album);
+    scanf(" %[^\n]", (*bibliothek)[*anzahl_songs].album);
 
     printf("\nGeben Sie das Erscheinungsjahr ein: ");
     scanf("%d", &(*bibliothek)[*anzahl_songs].erscheinungsjahr);
