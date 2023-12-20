@@ -114,26 +114,28 @@ void BibliothekAnzeigen(Song *bibliothek, int anzahl_songs)
 
 void SongHinzufügen(Song **bibliothek, int *anzahl_songs)
 {
-    *bibliothek = realloc(*bibliothek, sizeof (&anzahl_songs + 1));
+    *bibliothek = realloc(*bibliothek, sizeof ((&anzahl_songs) + 1));
+
+    printf("\n---------------- SONG HINZUFÜGEN -----------------\n");
 
     printf("Geben Sie den Titel ein: ");
     scanf(" %[^\n]", (*bibliothek)[*anzahl_songs].titel);
 
-    printf("\nGeben Sie den Interpret ein: ");
+    printf("Geben Sie den Interpret ein: ");
     scanf(" %[^\n]", (*bibliothek)[*anzahl_songs].interpret);
 
-    printf("\nGeben Sie das Album ein: ");
+    printf("Geben Sie das Album ein: ");
     scanf(" %[^\n]", (*bibliothek)[*anzahl_songs].album);
 
-    printf("\nGeben Sie das Erscheinungsjahr ein: ");
+    printf("Geben Sie das Erscheinungsjahr ein: ");
     scanf("%d", &(*bibliothek)[*anzahl_songs].erscheinungsjahr);
 
-    printf("\nGeben Sie die Dauer in Sekunden ein: ");
+    printf("Geben Sie die Dauer in Sekunden ein: ");
     scanf("%d", &(*bibliothek)[*anzahl_songs].dauer);
 
     (*anzahl_songs)++;
 
-    printf("Song erfolgreich hinzugefügt!\n");
+    printf("\nSong erfolgreich hinzugefügt!\n");
 }
 
 void SongLöschen(Song **bibliothek, int *anzahl_songs){
@@ -361,7 +363,22 @@ void DatenÄndern(Song **bibliothek, int *anzahl_songs){
     }
  }
 
+void DatenInDateiSpeichern(Song *bibliothek, int anzahl_songs)  {
 
+    FILE *fp = NULL;
+    fp = fopen(dateiname, "w");
+
+    for (int i = 0; i < anzahl_songs; i++)  {
+        fprintf(fp, "%s,%s,%s,%d,%d\n",
+                bibliothek[i].titel,
+                bibliothek[i].interpret,
+                bibliothek[i].album,
+                bibliothek[i].erscheinungsjahr,
+                bibliothek[i].dauer);
+    }
+
+    fclose(fp);
+}
 
 int main()
 {
@@ -414,10 +431,12 @@ int main()
                     break;
 
                 case 6:
-                    printf("Die Änderungen wurden gespeichert.");
+                    DatenInDateiSpeichern(bibliothek, anzahl_songs);
+                    printf("Die Änderungen wurden gespeichert.\n");
                     break;
 
                 case 7:
+                    DatenInDateiSpeichern(bibliothek, anzahl_songs);
                     printf("Die Daten wurden gespeichert und das Programm wurde beendet.\n\n");
                     break;
 
