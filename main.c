@@ -114,7 +114,7 @@ void BibliothekAnzeigen(Song *bibliothek, int anzahl_songs)
 
 void SongHinzufügen(Song **bibliothek, int *anzahl_songs)
 {
-    *bibliothek = realloc(*bibliothek, sizeof ((&anzahl_songs) + 1));
+    *bibliothek = (Song *)realloc(*bibliothek,((unsigned long)(*anzahl_songs) + 1) * sizeof(Song));
 
     printf("\n---------------- SONG HINZUFÜGEN -----------------\n");
 
@@ -133,17 +133,17 @@ void SongHinzufügen(Song **bibliothek, int *anzahl_songs)
     printf("Geben Sie die Dauer in Sekunden ein: ");
     scanf("%d", &(*bibliothek)[*anzahl_songs].dauer);
 
-    (*anzahl_songs)++;
-
     printf("\nSong erfolgreich hinzugefügt!\n");
+
+    (*anzahl_songs)++;
 }
 
 void SongLöschen(Song **bibliothek, int *anzahl_songs){
 
     int gelöschterIndex =-1;
     char geloeschtersong[MAX_ZEILENLAENGE];
-    printf("\nGeben Sie den Namen des zu löschenden Songs ein: ");
-    scanf("%99s", geloeschtersong);
+    printf("Geben Sie den Namen des zu löschenden Songs ein: ");
+    scanf(" %[^\n]", geloeschtersong);
 
 
     for (int i=0 ; i < *anzahl_songs ; i++){
@@ -168,6 +168,8 @@ void SongLöschen(Song **bibliothek, int *anzahl_songs){
     }
 // Reduziere die Anzahl der Songs in der Bibliothek
 (*anzahl_songs)--;
+
+*bibliothek = (Song *)realloc(*bibliothek,(unsigned long)(*anzahl_songs) * sizeof(Song));
 }
 
 void DatenSuchen(Song **bibliothek, int *anzahl_songs){
@@ -176,7 +178,7 @@ char gesuchterText[MAX_ZEILENLAENGE];
 int gesuchtesErscheinungsjahr;
 int gesuchterIndex = -1;
 
-do{
+do  {
 printf("\n------------------ SUCHE --------------------");
 printf("\nIn welcher Kategorie wollen Sie suchen?");
 printf("\n1. Titel");
