@@ -31,7 +31,7 @@ void Startroutine()    {
         switch (auswahl)
         {
         case 1:
-            printf("Geben Sie den Namen der bestehenden Bibliothek ein (mit .csv am Ende des Dateinamens): ");
+            printf("\nGeben Sie den Namen der bestehenden Bibliothek ein (mit .csv am Ende des Dateinamens): ");
             scanf("%s", dateiname);
             fp = fopen(dateiname, "r");
                 if (fp == NULL)     {
@@ -44,7 +44,7 @@ void Startroutine()    {
                 }
                     break;
         case 2:
-        printf("Geben Sie den Namen der neuen Bibliothek ein (mit .csv am Ende des Dateinamens): ");
+        printf("\nGeben Sie den Namen der neuen Bibliothek ein (mit .csv am Ende des Dateinamens): ");
             scanf("%s", dateiname);
             fp = fopen(dateiname, "w");
                 if (fp == NULL)     {
@@ -190,7 +190,7 @@ scanf("%d", &auswahl);
 switch(auswahl){
     case 1:
         printf("\nGeben sie den gesuchten Titel ein: ");
-        scanf("%99s", gesuchterText);
+        scanf(" %[^\n]", gesuchterText);
 
         for (int i=0 ; i < *anzahl_songs ; i++){
             if ( strcmp((*bibliothek)[i].titel, gesuchterText) == 0){
@@ -214,7 +214,7 @@ switch(auswahl){
     break;
     case 2:
         printf("\nGeben sie den gesuchten Interpreten ein: ");
-        scanf("%99s", gesuchterText);
+        scanf(" %[^\n]", gesuchterText);
 
         for (int i=0 ; i < *anzahl_songs ; i++){
             if ( strcmp((*bibliothek)[i].interpret, gesuchterText) == 0){
@@ -238,7 +238,7 @@ switch(auswahl){
     break;
     case 3:
         printf("\nGeben sie das gesuchte Album ein: ");
-        scanf("%99s", gesuchterText);
+        scanf(" %[^\n]", gesuchterText);
 
         for (int i=0 ; i < *anzahl_songs ; i++){
             if ( strcmp((*bibliothek)[i].album, gesuchterText) == 0){
@@ -300,7 +300,7 @@ void DatenÄndern(Song **bibliothek, int *anzahl_songs){
 
     printf("\n---------------- DATEN BEARBEITEN ------------------");
     printf("\nGeben Sie den Titel des Songs an, den Sie bearbeiten wollen: ");
-    scanf("%99s", gesuchtersong);
+    scanf(" %[^\n]", gesuchtersong);
 
 
     for (int i=0 ; i < *anzahl_songs ; i++){
@@ -325,17 +325,17 @@ void DatenÄndern(Song **bibliothek, int *anzahl_songs){
         {
             case 1:
             printf("\nBitte neuen Titel eingeben: ");
-            scanf("%s", (*bibliothek)[gesuchterIndex].titel);
+            scanf(" %[^\n]", (*bibliothek)[gesuchterIndex].titel);
             printf("\nTitel erfolgreich geändert!\n");
             break;
             case 2:
             printf("\nBitte neuen Interpret eingeben: ");
-            scanf("%s", (*bibliothek)[gesuchterIndex].interpret);
+            scanf(" %[^\n]", (*bibliothek)[gesuchterIndex].interpret);
             printf("\nInterpret erfolgreich geändert!\n");
             break;
             case 3:
             printf("\nBitte neues Album eingeben: ");
-            scanf("%s", (*bibliothek)[gesuchterIndex].album);
+            scanf(" %[^\n]", (*bibliothek)[gesuchterIndex].album);
             printf("\nAlbum erfolgreich geändert!\n");
             break;
             case 4:
