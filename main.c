@@ -383,9 +383,10 @@ int main()
             printf("3. Song löschen\n");
             printf("4. Nach Song oder Meta-Daten eines Songs suchen\n");
             printf("5. Musikbibliothek anzeigen\n");
-            printf("6. Programm beenden\n");
+            printf("6. Änderungen speichern\n");
+            printf("7. Daten speichern und Programm beenden\n");
 
-            printf("\nBitte wählen Sie einen Option (1-6): ");
+            printf("\nBitte wählen Sie einen Option (1-7): ");
 
             scanf("%d", &auswahl);
 
@@ -413,14 +414,18 @@ int main()
                     break;
 
                 case 6:
-                    printf("Das Programm wird beendet.\n\n");
+                    printf("Die Änderungen wurden gespeichert.");
+                    break;
+
+                case 7:
+                    printf("Die Daten wurden gespeichert und das Programm wurde beendet.\n\n");
                     break;
 
                 default:
                     printf("Ungültige Eingabe! Bitte wählen Sie erneut aus.\n");
             }
         }
-        while (auswahl != 6);
+        while (auswahl != 7);
 
     free(bibliothek);
 
