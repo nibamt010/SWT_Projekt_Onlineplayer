@@ -95,6 +95,7 @@ void BibliothekInitialisieren(Song **bibliothek, int *anzahl_songs)    {
 
 void BibliothekAnzeigen(Song *bibliothek, int anzahl_songs)
 {
+    printf("\n-------------- BIBLIOTHEK ANZEIGEN --------------\n");
     if(anzahl_songs == 0){
     printf("\nBibliothek leer!");
     }
@@ -142,7 +143,8 @@ void SongLöschen(Song **bibliothek, int *anzahl_songs){
 
     int gelöschterIndex =-1;
     char geloeschtersong[MAX_ZEILENLAENGE];
-    printf("Geben Sie den Namen des zu löschenden Songs ein: ");
+    printf("\n----------------- SONG LÖSCHEN -------------------");
+    printf("\nGeben Sie den Namen des zu löschenden Songs ein: ");
     scanf(" %[^\n]", geloeschtersong);
 
 
@@ -153,7 +155,7 @@ void SongLöschen(Song **bibliothek, int *anzahl_songs){
     }
 
     if(gelöschterIndex == -1){
-    printf("Song nicht gefunden!");
+    printf("Song nicht gefunden!\n");
     return;
     }
     else{
@@ -164,7 +166,7 @@ void SongLöschen(Song **bibliothek, int *anzahl_songs){
         (*bibliothek)[i].erscheinungsjahr = (*bibliothek)[i + 1].erscheinungsjahr;
         (*bibliothek)[i].dauer = (*bibliothek)[i + 1].dauer;
         }
-    printf("Song erfolgreich gelöscht!");
+    printf("Song erfolgreich gelöscht!\n");
     }
 // Reduziere die Anzahl der Songs in der Bibliothek
 (*anzahl_songs)--;
@@ -213,6 +215,7 @@ switch(auswahl){
             (*bibliothek)[gesuchterIndex].dauer);
             printf("\n");
         }
+    gesuchterIndex = -1;
     break;
     case 2:
         printf("\nGeben sie den gesuchten Interpreten ein: ");
@@ -237,6 +240,7 @@ switch(auswahl){
             (*bibliothek)[gesuchterIndex].dauer);
             printf("\n");
         }
+    gesuchterIndex = -1;
     break;
     case 3:
         printf("\nGeben sie das gesuchte Album ein: ");
@@ -261,6 +265,7 @@ switch(auswahl){
             (*bibliothek)[gesuchterIndex].dauer);
             printf("\n");
         }
+    gesuchterIndex = -1;
     break;
     case 4:
         printf("\nGeben sie das gesuchte Erscheinungsjahr ein: ");
@@ -285,6 +290,7 @@ switch(auswahl){
             (*bibliothek)[gesuchterIndex].dauer);
             printf("\n");
         }
+    gesuchterIndex = -1;
     break;
     case 5:
     printf("\n");
@@ -361,7 +367,7 @@ void DatenÄndern(Song **bibliothek, int *anzahl_songs){
 
     }while(auswahl != 6);
     }else{
-        printf("Song nicht gefunden!");
+        printf("Song nicht gefunden!\n");
     }
  }
 
