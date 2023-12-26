@@ -117,7 +117,7 @@ void BibliothekAnzeigen(Song *bibliothek, int anzahl_songs) {
 void SongHinzufügen(Song **bibliothek, int *anzahl_songs) {
     *bibliothek = (Song *)realloc(*bibliothek,((unsigned long)(*anzahl_songs) + 1) * sizeof(Song));
 
-    printf("\n---------------- SONG HINZUFÜGEN -----------------\n");
+    printf("\n---------------- SONG HINZUFÜGEN ----------------\n");
     printf("Geben Sie den Titel ein: ");
     scanf(" %[^\n]", (*bibliothek)[*anzahl_songs].titel);
     printf("Geben Sie den Interpret ein: ");
@@ -137,7 +137,7 @@ void SongLöschen(Song **bibliothek, int *anzahl_songs) {
     int gelöschterIndex =-1;
     char geloeschtersong[MAX_ZEILENLAENGE];
 
-    printf("\n----------------- SONG LÖSCHEN -------------------");
+    printf("\n----------------- SONG LÖSCHEN ------------------");
     printf("\nGeben Sie den Namen des zu löschenden Songs ein: ");
     scanf(" %[^\n]", geloeschtersong);
 
@@ -174,7 +174,7 @@ void DatenSuchen(Song **bibliothek, int *anzahl_songs) {
     int gesuchterIndex = -1;
 
     do {
-        printf("\n------------------ SUCHE --------------------");
+        printf("\n---------------------- SUCHE --------------------");
         printf("\nIn welcher Kategorie wollen Sie suchen?");
         printf("\n1. Titel");
         printf("\n2. Interpret");
@@ -313,7 +313,7 @@ void DatenÄndern(Song **bibliothek, int *anzahl_songs) {
     int gesuchterIndex = -1;
     int auswahl;
 
-    printf("\n---------------- DATEN BEARBEITEN ------------------");
+    printf("\n--------------- DATEN BEARBEITEN ----------------");
     printf("\nGeben Sie den Titel des Songs an, den Sie bearbeiten wollen: ");
     scanf(" %[^\n]", gesuchtersong);
 
@@ -325,7 +325,7 @@ void DatenÄndern(Song **bibliothek, int *anzahl_songs) {
 
     if (gesuchterIndex != -1) {
         do {
-            printf("\n---------------- DATEN BEARBEITEN ------------------");
+            printf("\n--------------- DATEN BEARBEITEN ----------------");
             printf("\n1. Titel");
             printf("\n2. Interpret");
             printf("\n3. Album");
@@ -410,7 +410,7 @@ int main() {
     BibliothekInitialisieren(&bibliothek, &anzahl_songs);
 
     do {
-        printf("\n------------------ HAUPTMENÜ --------------------");
+        printf("\n------------------- HAUPTMENÜ -------------------");
         printf("\n1. Song hinzufügen\n");
         printf("2. Meta-Daten eines Songs ändern\n");
         printf("3. Song löschen\n");
