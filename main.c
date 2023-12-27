@@ -67,12 +67,17 @@ void Startroutine() {
     while ((auswahl != 1) && (auswahl != 2));
 }
 
+/* Funktionsargumente vom Typ Song ** und int *, da void-Funktion (keine Rückgabewerte -> Pointer)
+ und eine "Pointerebene" höher als in main-Funktion */
+
 void BibliothekInitialisieren(Song **bibliothek, int *anzahl_songs) {
     int eintraege = 0;
     char c = 0;
     FILE *fp = NULL;
 
     fp = fopen(dateiname, "r");
+
+// Buchstabenweises Einlesen bis Zeilenende und anschließendes Hochzählen der Einträge der Musikbibliotheksdatei
 
     while ((c = (char)fgetc(fp)) != EOF) {
         if (c == '\n') {
@@ -82,6 +87,9 @@ void BibliothekInitialisieren(Song **bibliothek, int *anzahl_songs) {
     rewind(fp);
 
     *bibliothek = (Song *)malloc((unsigned long)eintraege * sizeof(Song));
+
+/* Zeilenweises Einlesen und Abspeichern der Songs aus der Musikbibliotheksdatei in die Strukur Song *bibliothek
+   fscanf-Befehl mit Format Specifier %[^,] bedeutet, dass bis zum Trennzeichen ',' eingelesen wird */
 
     for (int i = 0; i < eintraege; i++) {
         fscanf(fp, "%[^,],%[^,],%[^,],%d,%d\n",
@@ -97,6 +105,9 @@ void BibliothekInitialisieren(Song **bibliothek, int *anzahl_songs) {
 
 void SongHinzufügen(Song **bibliothek, int *anzahl_songs) {
     *bibliothek = (Song *)realloc(*bibliothek,((unsigned long)(*anzahl_songs) + 1) * sizeof(Song));
+
+/* scanf-befehl " %[^\n]" bedeutet, dass bis zum nächsten Zeilenumbruch einglesen wird
+   Das Leerzeichen vor dem Format Specifier bewirkt, dass voranstehende Leerzeichen, inklusive Zeilenumbrüche, übersprungen werden, bevor die Eingabe gelesen wird */
 
     printf("\n---------------- SONG HINZUFÜGEN ----------------\n");
     printf("Geben Sie den Titel ein: ");
@@ -207,6 +218,9 @@ void SongLöschen(Song **bibliothek, int *anzahl_songs) {
         printf("Song nicht gefunden!\n");
         return;
     }
+
+    // Nachfolgende Songs des gelöschten Songs werden in der Bibliothek um 1 nach vorne verschoben
+
     else {
         for (int i = gelöschterIndex; i < *anzahl_songs - 1; i++) {
             strcpy((*bibliothek)[i].titel, (*bibliothek)[i + 1].titel);
