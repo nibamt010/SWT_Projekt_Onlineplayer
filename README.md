@@ -32,6 +32,10 @@ Doppelte Zeiger werden verwendet, um Adressen von Zeigern zu speichern, insbeson
 
 Der Datentyp FILE wird verwendet, um einen Zeiger auf eine Datei zu speichern, insbesondere um auf die Musikbibliotheksdatei zuzugreifen.
 
+Benutzung:
+
+Der Code kann mit einem C-Compiler wie GCC oder Clang kompiliert werden.
+
 
 
 
