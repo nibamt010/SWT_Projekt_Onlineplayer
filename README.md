@@ -22,6 +22,16 @@ Nach erfolgreicher Initialisierung gelangt man in das Hauptmenü. Nun gibt es si
 
 Per switch-case-Anwendung springt das Programm in die jeweilige void-Funktion. Kommt es zu einer ungültigen Eingabe wird der Benutzer erneut aufgefordert eine Eingabe zu treffen.
 
+Erwähnenswerte Datentypen:
+
+Ein Song wird als struct abgelegt, in dem die verschiedenen Attribute wie Titel, Interpret, Album, Erscheinungsjahr und Dauer enthalten sind.
+
+Zeiger werden verwendet, um dynamischen Speicher für die Musikbibliothek zu allozieren. Dies ermöglicht es, die Größe der Bibliothek zur Laufzeit zu ändern.
+
+Doppelte Zeiger werden verwendet, um Adressen von Zeigern zu speichern, insbesondere für die dynamische Verwaltung von Speicherplatz für die Musikbibliothek.
+
+Der Datentyp FILE wird verwendet, um einen Zeiger auf eine Datei zu speichern, insbesondere um auf die Musikbibliotheksdatei zuzugreifen.
+
 
 
 
