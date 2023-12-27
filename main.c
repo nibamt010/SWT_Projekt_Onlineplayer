@@ -14,7 +14,7 @@ typedef struct {
     int dauer;
 } Song;
 
-void Startroutine() {
+void Startroutine(void) {
     int auswahl = 0;
     FILE *fp = NULL;
 
@@ -412,7 +412,7 @@ void DatenInDateiSpeichern(Song *bibliothek, int anzahl_songs) {
     fclose(fp);
 }
 
-int main() {
+int main(void) {
     Song *bibliothek = NULL;
     int auswahl;
     int anzahl_songs = 0;
