@@ -95,25 +95,6 @@ void BibliothekInitialisieren(Song **bibliothek, int *anzahl_songs) {
     fclose(fp);
 }
 
-void BibliothekAnzeigen(Song *bibliothek, int anzahl_songs) {
-    printf("\n-------------- BIBLIOTHEK ANZEIGEN --------------\n");
-
-    if(anzahl_songs == 0) {
-        printf("\nBibliothek leer!");
-    }
-    else {
-        for (int i = 0; i < anzahl_songs; i++) {
-            printf("%s, %s, %s, %d, %d",
-                    bibliothek[i].titel,
-                    bibliothek[i].interpret,
-                    bibliothek[i].album,
-                    bibliothek[i].erscheinungsjahr,
-                    bibliothek[i].dauer);
-            printf("\n");
-        }
-    }
-}
-
 void SongHinzufügen(Song **bibliothek, int *anzahl_songs) {
     *bibliothek = (Song *)realloc(*bibliothek,((unsigned long)(*anzahl_songs) + 1) * sizeof(Song));
 
@@ -131,6 +112,81 @@ void SongHinzufügen(Song **bibliothek, int *anzahl_songs) {
     printf("\nSong erfolgreich hinzugefügt!\n");
 
     (*anzahl_songs)++;
+}
+
+void DatenÄndern(Song **bibliothek, int *anzahl_songs) {
+    char gesuchtersong[MAX_ZEILENLAENGE];
+    int gesuchterIndex = -1;
+    int auswahl;
+
+    printf("\n--------------- DATEN BEARBEITEN ----------------");
+    printf("\nGeben Sie den Titel des Songs an, den Sie bearbeiten wollen: ");
+    scanf(" %[^\n]", gesuchtersong);
+
+    for (int i=0; i < *anzahl_songs; i++) {
+            if (strcmp((*bibliothek)[i].titel, gesuchtersong) == 0) {
+            gesuchterIndex = i;
+            }
+        }
+
+    if (gesuchterIndex != -1) {
+        do {
+            printf("\n--------------- DATEN BEARBEITEN ----------------");
+            printf("\n1. Titel");
+            printf("\n2. Interpret");
+            printf("\n3. Album");
+            printf("\n4. Erscheinungsjahr");
+            printf("\n5. Länge");
+            printf("\n6. Zurück zum Hauptmenü\n");
+            printf("\nWählen Sie die Kategorie, die Sie ändern wollen (1-6): ");
+            scanf("%d", &auswahl);
+
+            switch(auswahl) {
+                case 1:
+                    printf("\nBitte neuen Titel eingeben: ");
+                    scanf(" %[^\n]", (*bibliothek)[gesuchterIndex].titel);
+                    printf("\nTitel erfolgreich geändert!\n");
+                break;
+
+                case 2:
+                    printf("\nBitte neuen Interpret eingeben: ");
+                    scanf(" %[^\n]", (*bibliothek)[gesuchterIndex].interpret);
+                    printf("\nInterpret erfolgreich geändert!\n");
+                break;
+
+                case 3:
+                    printf("\nBitte neues Album eingeben: ");
+                    scanf(" %[^\n]", (*bibliothek)[gesuchterIndex].album);
+                    printf("\nAlbum erfolgreich geändert!\n");
+                break;
+
+                case 4:
+                    printf("\nBitte neues Erscheinungsjahr eingeben: ");
+                    scanf("%d", &(*bibliothek)[gesuchterIndex].erscheinungsjahr);
+                    printf("\nErscheinungsjahr erfolgreich geändert!\n");
+                break;
+
+                case 5:
+                    printf("\nBitte neue Länge eingeben: ");
+                    scanf("%d", &(*bibliothek)[gesuchterIndex].dauer);
+                    printf("\nLänge erfolgreich geändert!\n");
+                break;
+
+                case 6:
+                    printf("\n");
+                break;
+
+                default:
+                    printf("\nUngültige Eingabe! Bitte wählen Sie erneut aus.\n");
+                break;
+
+            }
+        }
+        while (auswahl != 6);
+    }
+    else {
+        printf("Song nicht gefunden!\n");
+    }
 }
 
 void SongLöschen(Song **bibliothek, int *anzahl_songs) {
@@ -308,78 +364,22 @@ void DatenSuchen(Song **bibliothek, int *anzahl_songs) {
     while (auswahl != 5);
 }
 
-void DatenÄndern(Song **bibliothek, int *anzahl_songs) {
-    char gesuchtersong[MAX_ZEILENLAENGE];
-    int gesuchterIndex = -1;
-    int auswahl;
+void BibliothekAnzeigen(Song *bibliothek, int anzahl_songs) {
+    printf("\n-------------- BIBLIOTHEK ANZEIGEN --------------\n");
 
-    printf("\n--------------- DATEN BEARBEITEN ----------------");
-    printf("\nGeben Sie den Titel des Songs an, den Sie bearbeiten wollen: ");
-    scanf(" %[^\n]", gesuchtersong);
-
-    for (int i=0; i < *anzahl_songs; i++) {
-            if (strcmp((*bibliothek)[i].titel, gesuchtersong) == 0) {
-            gesuchterIndex = i;
-            }
-        }
-
-    if (gesuchterIndex != -1) {
-        do {
-            printf("\n--------------- DATEN BEARBEITEN ----------------");
-            printf("\n1. Titel");
-            printf("\n2. Interpret");
-            printf("\n3. Album");
-            printf("\n4. Erscheinungsjahr");
-            printf("\n5. Länge");
-            printf("\n6. Zurück zum Hauptmenü\n");
-            printf("\nWählen Sie die Kategorie, die Sie ändern wollen (1-6): ");
-            scanf("%d", &auswahl);
-
-            switch(auswahl) {
-                case 1:
-                    printf("\nBitte neuen Titel eingeben: ");
-                    scanf(" %[^\n]", (*bibliothek)[gesuchterIndex].titel);
-                    printf("\nTitel erfolgreich geändert!\n");
-                break;
-
-                case 2:
-                    printf("\nBitte neuen Interpret eingeben: ");
-                    scanf(" %[^\n]", (*bibliothek)[gesuchterIndex].interpret);
-                    printf("\nInterpret erfolgreich geändert!\n");
-                break;
-
-                case 3:
-                    printf("\nBitte neues Album eingeben: ");
-                    scanf(" %[^\n]", (*bibliothek)[gesuchterIndex].album);
-                    printf("\nAlbum erfolgreich geändert!\n");
-                break;
-
-                case 4:
-                    printf("\nBitte neues Erscheinungsjahr eingeben: ");
-                    scanf("%d", &(*bibliothek)[gesuchterIndex].erscheinungsjahr);
-                    printf("\nErscheinungsjahr erfolgreich geändert!\n");
-                break;
-
-                case 5:
-                    printf("\nBitte neue Länge eingeben: ");
-                    scanf("%d", &(*bibliothek)[gesuchterIndex].dauer);
-                    printf("\nLänge erfolgreich geändert!\n");
-                break;
-
-                case 6:
-                    printf("\n");
-                break;
-
-                default:
-                    printf("\nUngültige Eingabe! Bitte wählen Sie erneut aus.\n");
-                break;
-
-            }
-        }
-        while (auswahl != 6);
+    if(anzahl_songs == 0) {
+        printf("\nBibliothek leer!");
     }
     else {
-        printf("Song nicht gefunden!\n");
+        for (int i = 0; i < anzahl_songs; i++) {
+            printf("%s, %s, %s, %d, %d",
+                    bibliothek[i].titel,
+                    bibliothek[i].interpret,
+                    bibliothek[i].album,
+                    bibliothek[i].erscheinungsjahr,
+                    bibliothek[i].dauer);
+            printf("\n");
+        }
     }
 }
 
