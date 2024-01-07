@@ -1,104 +1,56 @@
-ifeq ($(OS),Windows_NT)
-  ifeq ($(shell uname -s),) # not in a bash-like shell
-	CLEANUP = del /F /Q
-	MKDIR = mkdir
-  else # in a bash-like shell, like msys
-	CLEANUP = rm -f
-	MKDIR = mkdir -p
-  endif
-	TARGET_EXTENSION=exe
-else
-	CLEANUP = rm -f
-	MKDIR = mkdir -p
-	TARGET_EXTENSION=out
-endif
+CXX = g++
+CCC = gcc
+CCCFLAGS = -std=c11 -Wall
+CXXFLAGS = -std=c++17 -Wall
+LDFLAGS = 
+OBJ_DIR = obj
+SRC_DIR = src
+INC_DIR = include
+TEST_DIR = test
+BIN_DIR = bin
 
-.PHONY: clean
-.PHONY: test
+# Die Dateien für Ihre Anwendung, ausgenommen die main.c
+APP_SOURCES = $(filter-out $(SRC_DIR)/main.c, $(wildcard $(SRC_DIR)/*.c))
+APP_OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(APP_SOURCES))
+APP_EXECUTABLE = $(BIN_DIR)/MyProgram
 
-PATHU = unity/src/
-PATHS = src/
-PATHT = test/
-PATHB = build/
-PATHD = build/depends/
-PATHO = build/objs/
-PATHR = build/results/
-PATHP = bin/
-OBJS = $(patsubst %,$(PATHO)%,$(_OBJS))
+# Die Quelle für Ihre Hauptfunktion
+MAIN_SOURCE = $(SRC_DIR)/main.c
+MAIN_OBJECT = $(OBJ_DIR)/main.o
 
-BUILD_PATHS = $(PATHB) $(PATHD) $(PATHO) $(PATHR)
+# Die Dateien für Ihre Tests
+TEST_SOURCES = $(wildcard $(TEST_DIR)/*.cpp)
+TEST_OBJECTS = $(patsubst $(TEST_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(TEST_SOURCES))
+TEST_EXECUTABLE = $(BIN_DIR)/test_app
 
-SRCT = $(wildcard $(PATHT)*.c)
+# Standardmäßige build-Ziel
+all: $(APP_EXECUTABLE)
 
-COMPILE=gcc -c
-LINK=gcc
-DEPEND=gcc -MM -MG -MF
-CFLAGS=-I. -I$(PATHU) -I$(PATHS) -DTEST
-_OBJS = main.o library.o
+# Ziel zum Erstellen der Hauptanwendung
+$(APP_EXECUTABLE): $(APP_OBJECTS) $(MAIN_OBJECT)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
-RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCT) )
+# Ziel zum Erstellen der Test-Anwendung
+test: $(TEST_EXECUTABLE)
 
-PASSED = `grep -s PASS $(PATHR)*.txt`
-FAIL = `grep -s FAIL $(PATHR)*.txt`
-IGNORE = `grep -s IGNORE $(PATHR)*.txt`
+$(TEST_EXECUTABLE): $(APP_OBJECTS) $(TEST_OBJECTS)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
-all: test compile install
+# Generische Regel für das Erstellen von Objekten
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -I$(INC_DIR) -c $< -o $@
 
-test: $(BUILD_PATHS) $(RESULTS)
-	@echo "-----------------------\nIGNORES:\n-----------------------"
-	@echo "$(IGNORE)"
-	@echo "-----------------------\nFAILURES:\n-----------------------"
-	@echo "$(FAIL)"
-	@echo "-----------------------\nPASSED:\n-----------------------"
-	@echo "$(PASSED)"
-	@echo "\nDONE"
+# Generische Regel für das Erstellen von Test-Objekten
+$(OBJ_DIR)/%.o: $(TEST_DIR)/%.cpp | $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -I$(INC_DIR) -c $< -o $@
 
-$(PATHR)%.txt: $(PATHB)%.$(TARGET_EXTENSION)
-	-./$< > $@ 2>&1
+$(OBJ_DIR):
+	mkdir -p $@
 
-$(PATHB)Test%.$(TARGET_EXTENSION): $(PATHO)Test%.o $(PATHO)%.o $(PATHO)unity.o #$(PATHD)Test%.d
-	$(LINK) -o $@ $^
-
-$(PATHO)%.o:: $(PATHT)%.c
-	$(COMPILE) $(CFLAGS) $< -o $@
-
-$(PATHO)%.o:: $(PATHS)%.c
-	$(COMPILE) $(CFLAGS) $< -o $@
-
-$(PATHO)%.o:: $(PATHU)%.c $(PATHU)%.h
-	$(COMPILE) $(CFLAGS) $< -o $@
-
-$(PATHD)%.d:: $(PATHT)%.c
-	$(DEPEND) $@ $<
-
-$(PATHB):
-	$(MKDIR) $(PATHB)
-
-$(PATHD):
-	$(MKDIR) $(PATHD)
-
-$(PATHO):
-	$(MKDIR) $(PATHO)
-
-$(PATHR):
-	$(MKDIR) $(PATHR)
-
-compile: $(OBJS)
-
-install: $(OBJS)
-	$(LINK) -o $(PATHP)MyProgram.$(TARGET_EXTENSION) $(OBJS)
-
-format:
-	indent -linux $(PATHS)*.c $(PATHS)*.h $(PATHT)*.c
-	$(CLEANUP) $(PATHS)*~ $(PATHS)*~ $(PATHT)*~
+$(BIN_DIR):
+	mkdir -p $@
 
 clean:
-	$(CLEANUP) $(PATHO)*.o
-	$(CLEANUP) $(PATHB)*.$(TARGET_EXTENSION)
-	$(CLEANUP) $(PATHR)*.txt
-	$(CLEANUP) MyProgram.$(TARGET_EXTENSION)
+	rm -rf $(OBJ_DIR)/*.o $(BIN_DIR)/* $(APP_EXECUTABLE) $(TEST_EXECUTABLE)
 
-.PRECIOUS: $(PATHB)Test%.$(TARGET_EXTENSION)
-.PRECIOUS: $(PATHD)%.d
-.PRECIOUS: $(PATHO)%.o
-.PRECIOUS: $(PATHR)%.txt
+.PHONY: all test clean

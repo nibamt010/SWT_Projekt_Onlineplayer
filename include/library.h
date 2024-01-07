@@ -20,6 +20,7 @@ void BibliothekInitialisieren(Song **bibliothek, int *anzahl_songs);
 void SongHinzufügen(Song **bibliothek, int *anzahl_songs);
 void DatenÄndern(Song **bibliothek, int *anzahl_songs);
 void SongLöschen(Song **bibliothek, int *anzahl_songs);
+int SucheTitel(Song **bibliothek, int *anzahl_songs, char *gesuchterText);
 void DatenSuchen(Song **bibliothek, int *anzahl_songs);
 void BibliothekAnzeigen(Song *bibliothek, int anzahl_songs);
 void DatenInDateiSpeichern(Song *bibliothek, int anzahl_songs);

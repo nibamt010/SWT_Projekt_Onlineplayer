@@ -242,6 +242,17 @@ void SongLöschen(Song **bibliothek, int *anzahl_songs) {
     *bibliothek = (Song *)realloc(*bibliothek,(unsigned long)(*anzahl_songs) * sizeof(Song));
 }
 
+int SucheTitel(Song **bibliothek, int *anzahl_songs, char *gesuchterText) {
+    int gesuchterIndex = -1;
+    for (int i=0 ; i < *anzahl_songs ; i++) {
+        if (strcmp((*bibliothek)[i].titel, gesuchterText) == 0) {
+            gesuchterIndex = i;
+        }
+    }
+
+    return gesuchterIndex;
+}
+
 void DatenSuchen(Song **bibliothek, int *anzahl_songs) {
     int auswahl;
     char gesuchterText[MAX_ZEILENLAENGE];
@@ -264,11 +275,7 @@ void DatenSuchen(Song **bibliothek, int *anzahl_songs) {
                 printf("\nGeben sie den gesuchten Titel ein: ");
                 scanf(" %[^\n]", gesuchterText);
 
-                for (int i=0 ; i < *anzahl_songs ; i++) {
-                    if (strcmp((*bibliothek)[i].titel, gesuchterText) == 0) {
-                        gesuchterIndex = i;
-                    }
-                }
+                gesuchterIndex = SucheTitel(bibliothek, anzahl_songs, gesuchterText);
 
                 if(gesuchterIndex == -1) {
                     printf("\nKein Suchergebnis!\n");
