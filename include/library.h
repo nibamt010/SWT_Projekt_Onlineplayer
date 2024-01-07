@@ -1,9 +1,6 @@
 #ifndef LIBRARY_H
 #define LIBRARY_H
 
-#ifndef SONG
-#define SONG
-
 #define MAX_ZEILENLAENGE 100
 
 typedef struct {
@@ -13,7 +10,6 @@ typedef struct {
     int erscheinungsjahr;
     int dauer;
 } Song;
-#endif
 
 void Startroutine(void);
 void BibliothekInitialisieren(Song **bibliothek, int *anzahl_songs);

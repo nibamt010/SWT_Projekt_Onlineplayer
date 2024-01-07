@@ -3,20 +3,6 @@
 #include <string.h>
 #include "library.h"
 
-#ifndef SONG
-#define SONG
-
-#define MAX_ZEILENLAENGE 100
-
-typedef struct {
-    char titel[MAX_ZEILENLAENGE];
-    char interpret[MAX_ZEILENLAENGE];
-    char album[MAX_ZEILENLAENGE];
-    int erscheinungsjahr;
-    int dauer;
-} Song;
-#endif
-
 char dateiname[MAX_ZEILENLAENGE];
 
 void Startroutine(void) {
