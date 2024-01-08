@@ -191,16 +191,29 @@ void DatenÄndern(Song **bibliothek, int *anzahl_songs) {
     }
 }
 
-void SongLöschen(Song **bibliothek, int *anzahl_songs) {
+int SongLöschen (Song **bibliothek, int *anzahl_songs, int gelöschterIndex) {
+    for (int i = gelöschterIndex; i < *anzahl_songs - 1; i++) {
+        strcpy((*bibliothek)[i].titel, (*bibliothek)[i + 1].titel);
+        strcpy((*bibliothek)[i].interpret, (*bibliothek)[i + 1].interpret);
+        strcpy((*bibliothek)[i].album, (*bibliothek)[i + 1].album);
+        (*bibliothek)[i].erscheinungsjahr = (*bibliothek)[i + 1].erscheinungsjahr;
+        (*bibliothek)[i].dauer = (*bibliothek)[i + 1].dauer;
+        }
+    printf("Song erfolgreich gelöscht!\n");
+
+    return *anzahl_songs = (*anzahl_songs - 1);
+}
+
+void BibliothekVerkleinern(Song **bibliothek, int *anzahl_songs) {
     int gelöschterIndex =-1;
-    char geloeschtersong[MAX_ZEILENLAENGE];
+    char gelöschtersong[MAX_ZEILENLAENGE];
 
     printf("\n----------------- SONG LÖSCHEN ------------------");
     printf("\nGeben Sie den Namen des zu löschenden Songs ein: ");
-    scanf(" %[^\n]", geloeschtersong);
+    scanf(" %[^\n]", gelöschtersong);
 
     for (int i=0; i < *anzahl_songs; i++) {
-        if (strcmp((*bibliothek)[i].titel, geloeschtersong) == 0) {
+        if (strcmp((*bibliothek)[i].titel, gelöschtersong) == 0) {
         gelöschterIndex = i;
         }
     }
@@ -211,19 +224,9 @@ void SongLöschen(Song **bibliothek, int *anzahl_songs) {
     }
 
     // Nachfolgende Songs des gelöschten Songs werden in der Bibliothek um 1 nach vorne verschoben
-
     else {
-        for (int i = gelöschterIndex; i < *anzahl_songs - 1; i++) {
-            strcpy((*bibliothek)[i].titel, (*bibliothek)[i + 1].titel);
-            strcpy((*bibliothek)[i].interpret, (*bibliothek)[i + 1].interpret);
-            strcpy((*bibliothek)[i].album, (*bibliothek)[i + 1].album);
-            (*bibliothek)[i].erscheinungsjahr = (*bibliothek)[i + 1].erscheinungsjahr;
-            (*bibliothek)[i].dauer = (*bibliothek)[i + 1].dauer;
-        }
-    printf("Song erfolgreich gelöscht!\n");
+        *anzahl_songs = SongLöschen(bibliothek, anzahl_songs, gelöschterIndex);
     }
-
-    (*anzahl_songs)--;
 
     *bibliothek = (Song *)realloc(*bibliothek,(unsigned long)(*anzahl_songs) * sizeof(Song));
 }

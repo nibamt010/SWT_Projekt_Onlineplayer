@@ -2,6 +2,23 @@
 #include "catch.hpp"
 #include "library.h"
 
+TEST_CASE("Song Löschen") {
+    Song *bibliothek = NULL;
+    int anzahl_songs = 0;
+
+        anzahl_songs = 3;
+        bibliothek = new Song[anzahl_songs];
+
+        strcpy(bibliothek[0].titel, "In the End");
+        strcpy(bibliothek[1].titel, "Lose Yourself");
+        strcpy(bibliothek[2].titel, "Smells like Teen Spirit");
+
+        int gelöschterIndex = 1;
+
+        REQUIRE(SongLöschen(&bibliothek, &anzahl_songs, gelöschterIndex) == 2);
+    }
+
+
 TEST_CASE("SucheTitel") {
     Song *bibliothek = NULL;
     int anzahl_songs = 0;

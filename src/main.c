@@ -37,7 +37,7 @@ int main(void) {
             break;
 
             case 3:
-                SongLöschen(&bibliothek, &anzahl_songs);
+                BibliothekVerkleinern(&bibliothek, &anzahl_songs);
             break;
 
             case 4:
