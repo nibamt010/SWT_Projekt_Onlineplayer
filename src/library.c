@@ -242,6 +242,28 @@ int SucheTitel(Song **bibliothek, int *anzahl_songs, char *gesuchterText) {
     return gesuchterIndex;
 }
 
+int SucheAlbum(Song **bibliothek, int *anzahl_songs, char *gesuchterText) {
+    int gesuchterIndex = -1;
+    for (int i=0 ; i < *anzahl_songs ; i++) {
+        if (strcmp((*bibliothek)[i].album, gesuchterText) == 0) {
+            gesuchterIndex = i;
+        }
+    }
+
+    return gesuchterIndex;
+}
+
+int SucheErscheinungsjahr(Song **bibliothek, int *anzahl_songs, int gesuchtesErscheinungsjahr) {
+    int gesuchterIndex = -1;
+    for (int i=0 ; i < *anzahl_songs ; i++) {
+        if ((*bibliothek)[i].erscheinungsjahr == gesuchtesErscheinungsjahr) {
+            gesuchterIndex = i;
+        }
+    }
+
+    return gesuchterIndex;
+}
+
 int SucheInterpret(Song **bibliothek, int *anzahl_songs, char *gesuchterInterpret) {
     int gesuchterIndex = -1;
     for (int i=0 ; i < *anzahl_songs ; i++) {
@@ -324,11 +346,7 @@ void DatenSuchen(Song **bibliothek, int *anzahl_songs) {
                 printf("\nGeben sie das gesuchte Album ein: ");
                 scanf(" %[^\n]", gesuchterText);
 
-                for (int i=0; i < *anzahl_songs; i++) {
-                    if (strcmp((*bibliothek)[i].album, gesuchterText) == 0) {
-                    gesuchterIndex = i;
-                    }
-                }
+                gesuchterIndex = SucheAlbum(bibliothek, anzahl_songs, gesuchterText);
 
                 if (gesuchterIndex == -1) {
                     printf("\nKein Suchergebnis!\n");
@@ -352,11 +370,7 @@ void DatenSuchen(Song **bibliothek, int *anzahl_songs) {
                 printf("\nGeben sie das gesuchte Erscheinungsjahr ein: ");
                 scanf("%d", &gesuchtesErscheinungsjahr);
 
-                for (int i=0; i < *anzahl_songs; i++) {
-                    if ((*bibliothek)[i].erscheinungsjahr == gesuchtesErscheinungsjahr) {
-                        gesuchterIndex = i;
-                    }
-                }
+                gesuchterIndex = SucheErscheinungsjahr(bibliothek, anzahl_songs, gesuchtesErscheinungsjahr);
 
                 if (gesuchterIndex == -1) {
                     printf("\nKein Suchergebnis!\n");

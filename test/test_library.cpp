@@ -95,3 +95,89 @@ TEST_CASE("SucheTitel") {
         delete[] bibliothek;
     }
 }
+
+TEST_CASE("SucheAlbum") {
+    Song *bibliothek = NULL;
+    int anzahl_songs = 0;
+
+    SECTION("Suche nach vorhandenem Album") {
+        anzahl_songs = 3;
+        bibliothek = new Song[anzahl_songs];
+
+        strcpy(bibliothek[0].album, "Hybrid Theory");
+        strcpy(bibliothek[1].album, "Curtain Call");
+        strcpy(bibliothek[2].album, "Nevermind");
+
+        char gesuchtesAlbum[] = "Curtain Call";
+        REQUIRE(SucheAlbum(&bibliothek, &anzahl_songs, gesuchtesAlbum) == 1);
+
+        delete[] bibliothek;
+    }
+
+    SECTION("Suche nach nicht vorhandenem Album") {
+        anzahl_songs = 2;
+        bibliothek = new Song[anzahl_songs];
+
+        strcpy(bibliothek[0].album, "Hybrid Theory");
+        strcpy(bibliothek[1].album, "Curtain Call");
+
+        char gesuchtesAlbum[] = "Nevermind";
+        REQUIRE(SucheAlbum(&bibliothek, &anzahl_songs, gesuchtesAlbum) == -1);
+
+        delete[] bibliothek;
+    }
+
+    SECTION("Suche in leerer Bibliothek") {
+        anzahl_songs = 0;
+        bibliothek = new Song[anzahl_songs];
+
+        char gesuchtesAlbum[] = "Hybrid Theory";
+        REQUIRE(SucheAlbum(&bibliothek, &anzahl_songs, gesuchtesAlbum) == -1);
+
+        delete[] bibliothek;
+    }
+}
+
+TEST_CASE("SucheErscheinungsjahr") {
+    Song *bibliothek = NULL;
+    int anzahl_songs = 0;
+
+    SECTION("Suche nach vorhandenem Song") {
+        anzahl_songs = 3;
+        bibliothek = new Song[anzahl_songs];
+
+        bibliothek[0].erscheinungsjahr = 1997;
+        bibliothek[1].erscheinungsjahr = 2005;
+        bibliothek[2].erscheinungsjahr = 2022;
+
+        int gesuchtesErscheinungsjahr = 2005;
+        REQUIRE(SucheErscheinungsjahr(&bibliothek, &anzahl_songs, gesuchtesErscheinungsjahr) == 1);
+
+        delete[] bibliothek;
+    }
+
+
+    SECTION("Suche nach nicht vorhandenem Song") {
+        anzahl_songs = 3;
+        bibliothek = new Song[anzahl_songs];
+
+        bibliothek[0].erscheinungsjahr = 1997;
+        bibliothek[1].erscheinungsjahr = 2005;
+        bibliothek[2].erscheinungsjahr = 2022;
+
+        int gesuchtesErscheinungsjahr = 2007;
+        REQUIRE(SucheErscheinungsjahr(&bibliothek, &anzahl_songs, gesuchtesErscheinungsjahr) == -1);
+
+        delete[] bibliothek;
+    }
+
+    SECTION("Suche in leerer Bibliothek") {
+        anzahl_songs = 0;
+        bibliothek = new Song[anzahl_songs];
+
+        int gesuchtesErscheinungsjahr = 2007;
+        REQUIRE(SucheErscheinungsjahr(&bibliothek, &anzahl_songs, gesuchtesErscheinungsjahr) == -1);
+
+        delete[] bibliothek;
+    }
+}
