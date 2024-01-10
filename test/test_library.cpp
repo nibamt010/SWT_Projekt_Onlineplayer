@@ -2,6 +2,39 @@
 #include "catch.hpp"
 #include "library.h"
 
+TEST_CASE("SucheInterpret") {
+    Song *bibliothek = NULL;
+    int anzahl_songs = 0;
+
+    SECTION("Suche nach vorhandenem Interpret") {
+        anzahl_songs = 3;
+        bibliothek = new Song[anzahl_songs];
+
+        strcpy(bibliothek[0].interpret, "Linkin Park");
+        strcpy(bibliothek[1].interpret, "Eminem");
+        strcpy(bibliothek[2].interpret, "Nirvana");
+
+        char gesuchterInterpret[] = "Eminem";
+        REQUIRE(SucheInterpret(&bibliothek, &anzahl_songs, gesuchterInterpret) == 1);
+
+        delete[] bibliothek;
+    }
+
+SECTION("Suche nach nicht vorhandenem Interpret") {
+        anzahl_songs = 3;
+        bibliothek = new Song[anzahl_songs];
+
+        strcpy(bibliothek[0].interpret, "Linkin Park");
+        strcpy(bibliothek[1].interpret, "Eminem");
+        strcpy(bibliothek[2].interpret, "Nirvana");
+
+        char gesuchterInterpret[] = "Dr. Dre";
+        REQUIRE(SucheInterpret(&bibliothek, &anzahl_songs, gesuchterInterpret) == -1);
+
+        delete[] bibliothek;
+    }
+}
+
 TEST_CASE("Song Löschen") {
     Song *bibliothek = NULL;
     int anzahl_songs = 0;
@@ -16,6 +49,8 @@ TEST_CASE("Song Löschen") {
         int gelöschterIndex = 1;
 
         REQUIRE(SongLöschen(&bibliothek, &anzahl_songs, gelöschterIndex) == 2);
+
+        delete[] bibliothek;
     }
 
 

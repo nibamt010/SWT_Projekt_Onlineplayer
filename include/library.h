@@ -18,6 +18,7 @@ void DatenÄndern(Song **bibliothek, int *anzahl_songs);
 int SongLöschen(Song **bibliotehk, int *anzahl_songs, int gelöschterIndex);
 void BibliothekVerkleinern(Song **bibliothek, int *anzahl_songs);
 int SucheTitel(Song **bibliothek, int *anzahl_songs, char *gesuchterText);
+int SucheInterpret(Song **bibliothek, int *anzahl_songs, char *gesuchterInterpret);
 void DatenSuchen(Song **bibliothek, int *anzahl_songs);
 void BibliothekAnzeigen(Song *bibliothek, int anzahl_songs);
 void DatenInDateiSpeichern(Song *bibliothek, int anzahl_songs);
