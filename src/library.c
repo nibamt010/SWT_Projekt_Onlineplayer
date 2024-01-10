@@ -275,18 +275,6 @@ int SucheErscheinungsjahr(Song **bibliothek, int *anzahl_songs, int gesuchtesErs
     return gesuchterIndex;
 }
 
-int SucheInterpret(Song **bibliothek, int *anzahl_songs, char *gesuchterInterpret) {
-    int gesuchterIndex = -1;
-    for (int i=0 ; i < *anzahl_songs ; i++) {
-        if (strcmp((*bibliothek)[i].interpret, gesuchterInterpret) == 0) {
-             gesuchterIndex = i;
-        }
-    }
-
-    return gesuchterIndex;
-
-}
-
 void DatenSuchen(Song **bibliothek, int *anzahl_songs) {
     int auswahl;
     char gesuchterText[MAX_ZEILENLAENGE];
