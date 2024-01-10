@@ -63,6 +63,48 @@ TEST_CASE("SucheTitel") {
     }
 }
 
+TEST_CASE("SucheAlbum") {
+    Song *bibliothek = NULL;
+    int anzahl_songs = 0;
+
+    SECTION("Suche nach vorhandenem Album") {
+        anzahl_songs = 3;
+        bibliothek = new Song[anzahl_songs];
+
+        strcpy(bibliothek[0].album, "Hybrid Theory");
+        strcpy(bibliothek[1].album, "Curtain Call");
+        strcpy(bibliothek[2].album, "Nevermind");
+
+        char gesuchtesAlbum[] = "Curtain Call";
+        REQUIRE(SucheAlbum(&bibliothek, &anzahl_songs, gesuchtesAlbum) == 1);
+
+        delete[] bibliothek;
+    }
+
+    SECTION("Suche nach nicht vorhandenem Album") {
+        anzahl_songs = 2;
+        bibliothek = new Song[anzahl_songs];
+
+        strcpy(bibliothek[0].album, "Hybrid Theory");
+        strcpy(bibliothek[1].album, "Curtain Call");
+
+        char gesuchtesAlbum[] = "Nevermind";
+        REQUIRE(SucheAlbum(&bibliothek, &anzahl_songs, gesuchtesAlbum) == -1);
+
+        delete[] bibliothek;
+    }
+
+    SECTION("Suche in leerer Bibliothek") {
+        anzahl_songs = 0;
+        bibliothek = new Song[anzahl_songs];
+
+        char gesuchtesAlbum[] = "Hybrid Theory";
+        REQUIRE(SucheAlbum(&bibliothek, &anzahl_songs, gesuchtesAlbum) == -1);
+
+        delete[] bibliothek;
+    }
+}
+
 TEST_CASE("SucheErscheinungsjahr") {
     Song *bibliothek = NULL;
     int anzahl_songs = 0;
