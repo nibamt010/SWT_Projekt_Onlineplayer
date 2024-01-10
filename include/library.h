@@ -21,6 +21,7 @@ int SucheTitel(Song **bibliothek, int *anzahl_songs, char *gesuchterTitel);
 int SucheInterpret(Song **bibliothek, int *anzahl_songs, char *gesuchterInterpret);
 int SucheAlbum(Song **bibliothek, int *anzahl_songs, char *gesuchtesAlbum);
 int SucheErscheinungsjahr(Song **bibliothek, int *anzahl_songs, int gesuchtesErscheinungsjahr);
+int SucheInterpret(Song **bibliothek, int *anzahl_songs, char *gesuchterInterpret);
 void DatenSuchen(Song **bibliothek, int *anzahl_songs);
 void BibliothekAnzeigen(Song *bibliothek, int anzahl_songs);
 void DatenInDateiSpeichern(Song *bibliothek, int anzahl_songs);
