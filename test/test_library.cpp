@@ -16,6 +16,8 @@ TEST_CASE("Song Löschen") {
         int gelöschterIndex = 1;
 
         REQUIRE(SongLöschen(&bibliothek, &anzahl_songs, gelöschterIndex) == 2);
+
+        delete[] bibliothek;
     }
 
 
@@ -56,6 +58,50 @@ TEST_CASE("SucheTitel") {
 
         char gesuchterTitel[] = "In the End";
         REQUIRE(SucheTitel(&bibliothek, &anzahl_songs, gesuchterTitel) == -1);
+
+        delete[] bibliothek;
+    }
+}
+
+TEST_CASE("SucheErscheinungsjahr") {
+    Song *bibliothek = NULL;
+    int anzahl_songs = 0;
+
+    SECTION("Suche nach vorhandenem Song") {
+        anzahl_songs = 3;
+        bibliothek = new Song[anzahl_songs];
+
+        bibliothek[0].erscheinungsjahr = 1997;
+        bibliothek[1].erscheinungsjahr = 2005;
+        bibliothek[2].erscheinungsjahr = 2022;
+
+        int gesuchtesErscheinungsjahr = 2005;
+        REQUIRE(SucheErscheinungsjahr(&bibliothek, &anzahl_songs, gesuchtesErscheinungsjahr) == 1);
+
+        delete[] bibliothek;
+    }
+
+
+    SECTION("Suche nach nicht vorhandenem Song") {
+        anzahl_songs = 3;
+        bibliothek = new Song[anzahl_songs];
+
+        bibliothek[0].erscheinungsjahr = 1997;
+        bibliothek[1].erscheinungsjahr = 2005;
+        bibliothek[2].erscheinungsjahr = 2022;
+
+        int gesuchtesErscheinungsjahr = 2007;
+        REQUIRE(SucheErscheinungsjahr(&bibliothek, &anzahl_songs, gesuchtesErscheinungsjahr) == -1);
+
+        delete[] bibliothek;
+    }
+
+    SECTION("Suche in leerer Bibliothek") {
+        anzahl_songs = 0;
+        bibliothek = new Song[anzahl_songs];
+
+        int gesuchtesErscheinungsjahr = 2007;
+        REQUIRE(SucheErscheinungsjahr(&bibliothek, &anzahl_songs, gesuchtesErscheinungsjahr) == -1);
 
         delete[] bibliothek;
     }
