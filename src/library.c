@@ -231,10 +231,10 @@ void BibliothekVerkleinern(Song **bibliothek, int *anzahl_songs) {
     *bibliothek = (Song *)realloc(*bibliothek,(unsigned long)(*anzahl_songs) * sizeof(Song));
 }
 
-int SucheTitel(Song **bibliothek, int *anzahl_songs, char *gesuchterText) {
+int SucheTitel(Song **bibliothek, int *anzahl_songs, char *gesuchterTitel) {
     int gesuchterIndex = -1;
     for (int i=0 ; i < *anzahl_songs ; i++) {
-        if (strcmp((*bibliothek)[i].titel, gesuchterText) == 0) {
+        if (strcmp((*bibliothek)[i].titel, gesuchterTitel) == 0) {
             gesuchterIndex = i;
         }
     }
@@ -242,10 +242,21 @@ int SucheTitel(Song **bibliothek, int *anzahl_songs, char *gesuchterText) {
     return gesuchterIndex;
 }
 
-int SucheAlbum(Song **bibliothek, int *anzahl_songs, char *gesuchterText) {
+int SucheInterpret(Song **bibliothek, int *anzahl_songs, char *gesuchterInterpret) {
     int gesuchterIndex = -1;
     for (int i=0 ; i < *anzahl_songs ; i++) {
-        if (strcmp((*bibliothek)[i].album, gesuchterText) == 0) {
+        if (strcmp((*bibliothek)[i].interpret, gesuchterInterpret) == 0) {
+             gesuchterIndex = i;
+        }
+    }
+
+    return gesuchterIndex;
+}
+
+int SucheAlbum(Song **bibliothek, int *anzahl_songs, char *gesuchtesAlbum) {
+    int gesuchterIndex = -1;
+    for (int i=0 ; i < *anzahl_songs ; i++) {
+        if (strcmp((*bibliothek)[i].album, gesuchtesAlbum) == 0) {
             gesuchterIndex = i;
         }
     }
