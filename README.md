@@ -40,3 +40,28 @@ Der Datentyp FILE wird verwendet, um einen Zeiger auf eine Datei zu speichern, i
 Benutzung:
 
 Der Code kann mit einem C-Compiler wie GCC oder Clang kompiliert werden. Die Unit-Tests selber werden mit einem G++ Compiler übersetzt.
+
+Manuelle Übersetzung der Anwendung:
+
+g++ -std=c++17 -Wall -Iinclude -c src/library.c -o obj/library.o
+g++ -std=c++17 -Wall -Iinclude -c src/main.c -o obj/main.o
+g++ -std=c++17 -Wall -o bin/MyProgram obj/library.o obj/main.o
+
+Manuelle Übersetzung der Tests:
+
+g++ -std=c++17 -Wall -Iinclude -c test/test_library.cpp -o obj/test_library.o
+g++ -std=c++17 -Wall -o bin/test_app obj/library.o obj/test_library.o
+
+Automatische Übersetzung mit Makefile:
+
+make clean
+make all
+make test
+
+Starten der Anwendung:
+
+bin/MyProgram
+
+Starten der Testdurchläufe:
+
+bin/test_app
