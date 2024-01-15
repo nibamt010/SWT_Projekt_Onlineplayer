@@ -29,7 +29,7 @@ Zum Durchführen der Unit-Tests wird das Catch2-Framework verwendet.
 
 Erwähnenswerte Datentypen:
 
-Ein Song wird als struct abgelegt, in dem die verschiedenen Attribute wie Titel, Interpret, Album, Erscheinungsjahr und Dauer enthalten sind.
+Ein Song wird als struct abgelegt, in dem die verschiedenen Variablen wie Titel, Interpret, Album, Erscheinungsjahr und Dauer enthalten sind.
 
 Zeiger werden verwendet, um dynamischen Speicher für die Musikbibliothek zu allozieren. Dies ermöglicht es, die Größe der Bibliothek zur Laufzeit zu ändern.
 
@@ -39,7 +39,7 @@ Der Datentyp FILE wird verwendet, um einen Zeiger auf eine Datei zu speichern, i
 
 Benutzung:
 
-Der Code kann mit einem C-Compiler wie GCC oder Clang kompiliert werden. Die Unit-Tests selber werden mit einem G++ Compiler übersetzt.
+Der Code kann mit einem C-Compiler wie GCC oder Clang kompiliert werden. Die Unit-Tests selber werden mit einem C++ Compiler wie G++ übersetzt.
 
 Manuelle Übersetzung der Anwendung:
 
