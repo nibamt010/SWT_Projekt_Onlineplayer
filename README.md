@@ -23,6 +23,35 @@ Per switch-case-Anwendung springt das Programm in die jeweilige void-Funktion. K
 
 Die DatenSuchen Funktion wurde zum Durchführen der Unit-Tests in mehrere kleine Unterfunktionen unterteilt (bspw. InterpretSuchen, AlbumSuchen, ...). Ebenso wurde ein Teil der BibliothekVerkleinern Funktion ausgelagert (SongLöschen), um den jeweiligen Unit Test durchführen zu können. Dies ist nötig, da aufgrund der benutzerabhängigen Eingaben ein Durchführen der Tests sonst nicht möglich wäre.
 
+Projektstruktur:
+
+Musik-Bibliothek/
+|-- bin/
+|   |-- MyProgram (oder MyProgram.exe für Windows)
+|   |-- test_app (oder test_app.exe für Windows)
+|
+|-- include/
+|   |-- library.h
+|
+|-- obj/
+|   |-- library.o
+|   |-- main.o
+|   |-- test_library.o
+|-- src/
+|   |-- library.c
+|   |-- main.c
+|
+|-- test/
+|   |-- catch.hpp
+|   |-- test_library.cpp
+|
+|-- Makefile
+|
+|-- README.md
+|
+|-- Bib.csv
+|-- Test.csv
+
 Testframework:
 
 Zum Durchführen der Unit-Tests wird das Catch2-Framework verwendet.
